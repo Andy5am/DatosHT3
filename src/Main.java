@@ -17,6 +17,7 @@ public class Main {
             lista[i]=(randomAlphaNumeric(5));
             listaNum[i]= r.nextInt(500)+1;
         }
+        /*
         //Ordenados por quicksort
         System.out.println("Datos: \n");
         for (int i = 0;i < lista.length;i++){
@@ -26,7 +27,21 @@ public class Main {
         System.out.println();
         for (int i = 0;i < lista.length;i++){
             System.out.print(lista[i]+", ");
+        }*/
+
+        //Ordenados por Radix
+        System.out.println("Datos: \n");
+        for (int i = 0;i < listaNum.length;i++){
+            System.out.print(listaNum[i]+", ");
         }
+        Radix rad = new Radix();
+        rad.radixsort(listaNum, listaNum.length);
+        //quickSort(lista,lista.length);
+        System.out.println("\n");
+        for (int i = 0;i < listaNum.length;i++){
+            System.out.print(listaNum[i]+", ");
+        }
+
 /*
         //Ordenados por Merge
         System.out.println("Lista de Números: ");
