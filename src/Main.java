@@ -1,85 +1,131 @@
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
+import java.util.Scanner;
 
 import static java.util.Collections.swap;
 
 public class Main {
 
     public static void main(String args[]){
-        Comparable [] lista = new Comparable[30];
+
+        Scanner input = new Scanner(System.in);
+        System.out.println("Cuantos elementos desea ordenar?");
+
+        Integer sortNum = input.nextInt();
+        Comparable [] lista = new Comparable[sortNum];
         //ArrayList<Comparable> lista = new ArrayList();
-        int[] listaNum = new int[30];
+        int[] listaNum = new int[sortNum];
 
         Random r = new Random();
 
-        for (int i = 0; i<30; i++){
+        for (int i = 0; i<sortNum; i++){
             lista[i]=(randomAlphaNumeric(5));
             listaNum[i]= r.nextInt(500)+1;
         }
-        /*
+
+        //crear archivo
+        try {
+            String direccion = System.getProperty("user.dir")+"/lista.txt";
+            String contenido = Arrays.toString(lista);
+            File file = new File(direccion);
+            // Si el archivo no existe es creado
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+            FileWriter fw = new FileWriter(file);
+            BufferedWriter bw = new BufferedWriter(fw);
+            bw.write(contenido);
+            bw.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+
+
         //Ordenados por quicksort
-        System.out.println("Datos: \n");
+        System.out.println("Quicksort: \n");
         for (int i = 0;i < lista.length;i++){
             System.out.print(lista[i]+", ");
         }
         quickSort(lista,lista.length);
-        System.out.println();
+        System.out.println("\n Ordenados:");
         for (int i = 0;i < lista.length;i++){
             System.out.print(lista[i]+", ");
-        }*/
+        }
 
         //Ordenados por Radix
-        System.out.println("Datos: \n");
+        System.out.println("\n\nRadix: \n");
         for (int i = 0;i < listaNum.length;i++){
             System.out.print(listaNum[i]+", ");
         }
         Radix rad = new Radix();
         rad.radixsort(listaNum, listaNum.length);
+        System.out.println("\nOrdenados:");
         //quickSort(lista,lista.length);
-        System.out.println("\n");
-        for (int i = 0;i < listaNum.length;i++){
+        for (int i =0;i<listaNum.length;i++){
             System.out.print(listaNum[i]+", ");
         }
-
-/*
+        System.out.println("\n");
         //Ordenados por Merge
-        System.out.println("Lista de Números: ");
-        for (int i = 0;i<lista.length;i++){
-            System.out.print(lista[i]+ ", ");
-        }
-        MergeSort ob = new MergeSort();
-        ob.sort(lista,0 ,listaNum.length-1);
-        System.out.println("\nLista Ordenada de Números: \n");
-        for (int i = 0;i<lista.length;i++){
-            System.out.print(lista[i]+ ", ");
-        }
+        System.out.println("Mergesort: ");
+
+
+            for (int j = 0; j < lista.length; j++) {
+                System.out.print(lista[j] + ", ");
+            }
+
+            MergeSort ob = new MergeSort();
+            ob.sort(lista, 0, listaNum.length - 1);
+            System.out.println("\nOrdenados: ");
+            for (int j = 0; j < lista.length; j++) {
+                System.out.print(lista[j] + ", ");
+            }
 
         //Ordenados por gnomeSort
+            System.out.println("\n\nGnomeSort: ");
         for (int a = 0; a<lista.length;a++){
             System.out.print(lista[a]+", ");
         }
-        System.out.println("\n \n--------------------------- \n \n");
+        System.out.println("\nordenados");
         Comparable[] lista0 = new Comparable[lista.length];
         lista0 = gnomeSort(lista);
-        for (int i = 0; i<lista0.length ;i++){
-            System.out.print(lista0[i]+", ");
-        }*/
+        for (int a = 0; a<lista0.length ;a++){
+            System.out.print(lista0[a]+", ");
+        }
+
+        //Ordenados por selectionsort+
+        System.out.println("\n\nSelectionSort: ");
+        for (int i = 0; i<lista.length;i++){
+            System.out.print(lista[i]+", ");
+        }
+        System.out.println("\n");
+        Comparable[] lista1 = new Comparable[lista.length];
+        lista1 = selectionSort(lista);
+        System.out.println("Ordenados: ");
+        for (int i =0; i<lista1.length;i++){
+            System.out.print(lista1[i]+", ");
+        }
+
     }
 
-    public static ArrayList<Integer> selectionSort(ArrayList<Integer> lista){
-        int numUnsorted = lista.size();
+    public static Comparable[] selectionSort(Comparable[] lista){
+        int numUnsorted = lista.length;
         int index;
         int max;
         while (numUnsorted >0){
             //determine maximum value of the array
             max = 0;
             for (index = 1; index < numUnsorted;index ++){
-                if(lista.get(max)< lista.get(index)){
+                if(lista[max].compareTo(lista[index])<0){
                     max = index;
                 }
             }
-            swap(lista, max, numUnsorted-1);
+            swap(Arrays.asList(lista), max, numUnsorted-1);
             numUnsorted -- ;
         }
         return lista;
