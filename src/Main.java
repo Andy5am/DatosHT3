@@ -1,3 +1,9 @@
+//Andy Castillo 18040  Marco Fuentes 18188
+//8/2/19
+//Main: Corre todos los sorts
+
+
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -74,6 +80,7 @@ public class Main {
             int charNum =Integer.parseInt(caracteres[i]);
             lista[i]= charNum;
         }
+
 
         //Ordenados por quicksort
         System.out.println("Quicksort: \n");

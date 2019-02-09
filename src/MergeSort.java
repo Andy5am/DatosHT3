@@ -1,3 +1,8 @@
+//Andy Castillo 18040  Marco Fuentes 18188
+//8/2/19
+//MergeSort: Tiene el sort merge
+
+
 public class MergeSort {
     void merge(Comparable[] arr, int l, int m, int r){
         int n1 = m - l + 1;
