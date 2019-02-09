@@ -4,16 +4,16 @@ import java.util.Arrays;
 
 public class Radix {
     // A utility function to get maximum value in arr[]
-    static int getMax(int arr[], int n)
+    static int getMax(Comparable arr[], int n)
     {
-        int mx = arr[0];
+        int mx = (Integer) arr[0];
         for (int i = 1; i < n; i++)
-            if (arr[i] > mx)
-                mx = arr[i];
+            if ((Integer)arr[i] > mx)
+                mx = (Integer) arr[i];
         return mx;
     }
 
-    static void countSort(int arr[], int n, int exp)
+    static void countSort(Comparable arr[], int n, int exp)
     {
         int output[] = new int[n]; // output array
         int i;
@@ -22,7 +22,7 @@ public class Radix {
 
         // Store count of occurrences in count[]
         for (i = 0; i < n; i++)
-            count[ (arr[i]/exp)%10 ]++;
+            count[ ((Integer) arr[i]/exp)%10 ]++;
 
         // Change count[i] so that count[i] now contains
         // actual position of this digit in output[]
@@ -32,8 +32,8 @@ public class Radix {
         // Build the output array
         for (i = n - 1; i >= 0; i--)
         {
-            output[count[ (arr[i]/exp)%10 ] - 1] = arr[i];
-            count[ (arr[i]/exp)%10 ]--;
+            output[count[ ((Integer) arr[i]/exp)%10 ] - 1] = (Integer) arr[i];
+            count[ ((Integer) arr[i]/exp)%10 ]--;
         }
 
         // Copy the output array to arr[], so that arr[] now
@@ -45,7 +45,7 @@ public class Radix {
 
     // The main function to that sorts arr[] of size n using
     // Radix Sort
-    static void radixsort(int arr[], int n)
+    static void radixsort(Comparable arr[], int n)
     {
         // Find the maximum number to know number of digits
         int m = getMax(arr, n);

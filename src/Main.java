@@ -1,10 +1,15 @@
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.stream.Stream;
 
 import static java.util.Collections.swap;
 
@@ -16,21 +21,22 @@ public class Main {
         System.out.println("Cuantos elementos desea ordenar?");
 
         Integer sortNum = input.nextInt();
-        Comparable [] lista = new Comparable[sortNum];
+        Comparable [] unsortedList = new Comparable[sortNum];
         //ArrayList<Comparable> lista = new ArrayList();
         int[] listaNum = new int[sortNum];
 
         Random r = new Random();
 
         for (int i = 0; i<sortNum; i++){
-            lista[i]=(randomAlphaNumeric(5));
-            listaNum[i]= r.nextInt(500)+1;
+            //listaNum[i]=(randomAlphaNumeric(5));
+            unsortedList[i]= r.nextInt(500)+1;
         }
+        System.out.println(Arrays.toString(unsortedList));
 
         //crear archivo
         try {
             String direccion = System.getProperty("user.dir")+"/lista.txt";
-            String contenido = Arrays.toString(lista);
+            String contenido = Arrays.toString(unsortedList);
             File file = new File(direccion);
             // Si el archivo no existe es creado
             if (!file.exists()) {
@@ -44,8 +50,32 @@ public class Main {
             e.printStackTrace();
         }
 
+        //lectura de archivo
 
+        ArrayList<String> fileList = new ArrayList<String>();
+        try {
+            Stream<String> lines = Files.lines(
+                    Paths.get(System.getProperty("user.dir")+"\\lista.txt"),
+                    StandardCharsets.UTF_8
+            );
+            lines.forEach(a -> fileList.add(a));
+        }catch (IOException e ){
+            System.out.println("Error!");
+        }
+        System.out.println(fileList);
 
+        for (int i = 0; i<fileList.size(); i++){
+            System.out.println(fileList.get(i)+"hola");
+        }
+        System.out.println(fileList.get(0));
+        String[] caracteres = fileList.get(0).split(",");
+        Comparable[] lista = new Comparable[sortNum];
+        System.out.println(Arrays.toString(caracteres));
+        for (int i = 0; i < sortNum; i++) {
+            int charNum =Integer.parseInt(caracteres[i]);
+            lista[i]= charNum;
+        }
+        System.out.println(Arrays.toString(caracteres));
 
         //Ordenados por quicksort
         System.out.println("Quicksort: \n");
@@ -60,15 +90,15 @@ public class Main {
 
         //Ordenados por Radix
         System.out.println("\n\nRadix: \n");
-        for (int i = 0;i < listaNum.length;i++){
-            System.out.print(listaNum[i]+", ");
+        for (int i = 0;i < lista.length;i++){
+            System.out.print(lista[i]+", ");
         }
         Radix rad = new Radix();
-        rad.radixsort(listaNum, listaNum.length);
+        rad.radixsort(lista, lista.length);
         System.out.println("\nOrdenados:");
         //quickSort(lista,lista.length);
-        for (int i =0;i<listaNum.length;i++){
-            System.out.print(listaNum[i]+", ");
+        for (int i =0;i<lista.length;i++){
+            System.out.print(lista[i]+", ");
         }
         System.out.println("\n");
         //Ordenados por Merge
@@ -80,7 +110,7 @@ public class Main {
             }
 
             MergeSort ob = new MergeSort();
-            ob.sort(lista, 0, listaNum.length - 1);
+            ob.sort(lista, 0, lista.length - 1);
             System.out.println("\nOrdenados: ");
             for (int j = 0; j < lista.length; j++) {
                 System.out.print(lista[j] + ", ");
