@@ -21,7 +21,7 @@ public class Main {
         System.out.println("Cuantos elementos desea ordenar?");
 
         Integer sortNum = input.nextInt();
-        Comparable [] unsortedList = new Comparable[sortNum];
+        ArrayList unsortedList = new ArrayList();
         //ArrayList<Comparable> lista = new ArrayList();
         int[] listaNum = new int[sortNum];
 
@@ -29,14 +29,18 @@ public class Main {
 
         for (int i = 0; i<sortNum; i++){
             //listaNum[i]=(randomAlphaNumeric(5));
-            unsortedList[i]= r.nextInt(500)+1;
+            unsortedList.add(r.nextInt(500)+1);
         }
-        System.out.println(Arrays.toString(unsortedList));
 
+        //ciclo para guardar cada elemento de la lista de numeros deordenados para asi poder ponerlos en el archivo
+        String content = "";
+        for (int i = 0;i<unsortedList.size();i++){
+            content+=unsortedList.get(i).toString()+",";
+        }
         //crear archivo
         try {
             String direccion = System.getProperty("user.dir")+"/lista.txt";
-            String contenido = Arrays.toString(unsortedList);
+            String contenido = content;
             File file = new File(direccion);
             // Si el archivo no existe es creado
             if (!file.exists()) {
@@ -62,20 +66,14 @@ public class Main {
         }catch (IOException e ){
             System.out.println("Error!");
         }
-        System.out.println(fileList);
 
-        for (int i = 0; i<fileList.size(); i++){
-            System.out.println(fileList.get(i)+"hola");
-        }
-        System.out.println(fileList.get(0));
+        //separacion de los caracteres del archivo
         String[] caracteres = fileList.get(0).split(",");
         Comparable[] lista = new Comparable[sortNum];
-        System.out.println(Arrays.toString(caracteres));
         for (int i = 0; i < sortNum; i++) {
             int charNum =Integer.parseInt(caracteres[i]);
             lista[i]= charNum;
         }
-        System.out.println(Arrays.toString(caracteres));
 
         //Ordenados por quicksort
         System.out.println("Quicksort: \n");
@@ -102,7 +100,7 @@ public class Main {
         }
         System.out.println("\n");
         //Ordenados por Merge
-        System.out.println("Mergesort: ");
+        System.out.println("Mergesort: \n");
 
 
             for (int j = 0; j < lista.length; j++) {
@@ -117,7 +115,7 @@ public class Main {
             }
 
         //Ordenados por gnomeSort
-            System.out.println("\n\nGnomeSort: ");
+            System.out.println("\n\nGnomeSort: \n");
         for (int a = 0; a<lista.length;a++){
             System.out.print(lista[a]+", ");
         }
@@ -129,14 +127,13 @@ public class Main {
         }
 
         //Ordenados por selectionsort+
-        System.out.println("\n\nSelectionSort: ");
+        System.out.println("\n\nSelectionSort: \n");
         for (int i = 0; i<lista.length;i++){
             System.out.print(lista[i]+", ");
         }
-        System.out.println("\n");
         Comparable[] lista1 = new Comparable[lista.length];
         lista1 = selectionSort(lista);
-        System.out.println("Ordenados: ");
+        System.out.println("\nOrdenados: ");
         for (int i =0; i<lista1.length;i++){
             System.out.print(lista1[i]+", ");
         }

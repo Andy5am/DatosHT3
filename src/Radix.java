@@ -1,6 +1,5 @@
 import java.util.Arrays;
 
-//El motodo Radix solo funciona con numeros
 
 public class Radix {
     // A utility function to get maximum value in arr[]
